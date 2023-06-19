@@ -18,10 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/user', function (Request $request) {
-        Log::build([
-            'driver' => 'single',
-            'path' => storage_path('logs/authUser.log'),
-          ])->info('Authenticated user', ['user' => Auth::user()]);
+        Log::channel('authUser')->info('Authenticated user', ['user' => Auth::user()]);
         return $request->user();
     });
     // api routes go here
