@@ -26,6 +26,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if (Auth::check()) {
+            // The user is already logged in...
+            return response()->json(['error' => 'Already logged in'], 422);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
