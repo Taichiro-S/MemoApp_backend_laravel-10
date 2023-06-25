@@ -22,4 +22,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
         return $request->user();
     });
     // api routes go here
+    Route::get('/tasks', 'App\Http\Controllers\TaskController@index');
+    Route::post('/task/create', 'App\Http\Controllers\TaskController@store');
+    Route::post('/task/{task_id}/update', 'App\Http\Controllers\TaskController@update');
+    Route::post('/task/{task_id}/delete', 'App\Http\Controllers\TaskController@destroy');
+
 });
