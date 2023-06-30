@@ -21,5 +21,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Log::channel('authUser')->info('Authenticated user', ['user' => Auth::user()]);
         return $request->user();
     });
-    // api routes go here
+    Route::group([
+        'namespace' => 'App\Http\Controllers',
+        'prefix' => 'v1',
+    ], function () {
+        Route::apiResource('tasks', 'TaskController');
+    });
 });
