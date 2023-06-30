@@ -2,43 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use App\Models\User;
 
 class TaskController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
-
-        $this->middleware(function($request,$next) {
-            $task_id = $request->route()->parameter('task_id');
-            // idが指定されていた場合
-            if(!is_null($task_id)) {
-                $task = Task::findOrFail($task_id);
-                // ログインIDとアクセスされたショップのオーナIDが異なれば404エラー
-                if(Auth::id() !== (int)$task->user_id) {
-                    return response()->json(404);
-                }
-            }
-            return $next($request);
-
-        });
-
+        $this->authorizeResource(Task::class, 'task');
     }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $user_id = Auth::id();
-        $tasks = Task::where('user_id', $user_id)->get();
-        return response()->json($tasks, 200);
+        return TaskResource::collection(Task::paginate(10));
+    }
+    
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreTaskRequest $request)
+    {
+        $task = Task::create($request->all());
+        return response()->json(['created_task' => $task, 'request' => $request->all()], 201);
     }
 
-    public function store(Request $request)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Task $task)
     {
-        $user_id = Auth::id();
-        $tasks = Task::where('user_id', $user_id)->get();
-        return response()->json($tasks, 200);
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateTaskRequest $request, Task $task)
+    {
+        $task->update($request->all());
+        return response()->json(['updated_task' => $task, 'request' => $request->all()], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return response()->json(['deleted_task' => $task], 200);
     }
 }
