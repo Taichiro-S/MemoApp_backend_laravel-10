@@ -27,7 +27,6 @@ class RegisteredUserController extends Controller
         ]);
 
         if (Auth::check()) {
-            // The user is already logged in...
             return response()->json(['error' => 'Already logged in'], 422);
         }
 

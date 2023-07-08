@@ -16,7 +16,6 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): Response
     {
         if (Auth::check()) {
-            // The user is already logged in...
             return response()->json(['error' => 'Already logged in'], 422);
         }
         
