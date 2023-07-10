@@ -36,12 +36,12 @@
 
 ## 2. バックエンドで使用したライブラリ
 
--   **_[Breeze](https://laravel.com/docs/10.x/starter-kits#laravel-breeze)_** ( 1.21 ) : 認証のための基本的な機能を提供するライブラリ
+-   **_[Breeze](https://laravel.com/docs/10.x/starter-kits#laravel-breeze)_** ( 1.21 ) : 認証のための基本的な機能を提供するライブラリ  
     ログイン、ユーザー登録、パスワードリセット、メール確認、パスワード確認などの基本的な機能を提供します。Sanctum と組み合わせて SPA 認証を実装することができます。
     <br/>
--   **_[Sanctum](https://laravel.com/docs/10.x/sanctum)_** ( 3.2 ) : API トークン認証 と SPA 認証のためのライブラリ
+-   **_[Sanctum](https://laravel.com/docs/10.x/sanctum)_** ( 3.2 ) : API トークン認証 と SPA 認証のためのライブラリ  
     本アプリでは React で作成した SPA 認証のために Cookie ベースのセッション認証を使用しています。認証はステートフルであり Cookie を使用するため、トークンを使用した CSRF 保護の機能も提供しています。また、オリジンが異なるドメインの認証には CORS 設定も必要ですが、ここでは説明は割愛します。
     SPA 認証の流れは少し複雑なので、自分自身まだ理解が曖昧なところがあります。[こちら](https://dev.to/nicolus/laravel-sanctum-explained-spa-authentication-45g1) の記事の図が参考になるかと思います。
     <br/>
--   **_[Faker](https://github.com/fzaninotto/Faker)_** ( 1.9.1 ) : ダミーデータ生成のためのライブラリ
+-   **_[Faker](https://github.com/fzaninotto/Faker)_** ( 1.9.1 ) : ダミーデータ生成のためのライブラリ  
     多種多様な型のデータを生成できるライブラリです。Factory, Seeder と組み合わせてデータベースにデータを流し込むことで、アプリケーションの挙動を確認できます。日本語にも対応しています。
